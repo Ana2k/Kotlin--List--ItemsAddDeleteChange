@@ -5,6 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="4dp">
+<!--    <data>-->
+<!--        <variable-->
+<!--            android:name= "item"-->
+<!--            android:type= "com.example.ExampleItem" />&lt;!&ndash;data class name the view model is &ndash;&gt;-->
+<!--    </data>-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

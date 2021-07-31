@@ -1,5 +1,13 @@
 package com.example
 
-data class ExampleItem(private val mImageResource: Int,
-                       private var mText1: String,
-                       private var mText2: String)
+data class ExampleItem(
+    val imageResource: Int,
+    var text1: String,
+    var text2: String,
+){
+    fun changeText1(text: String) {
+        text1 = text
+    }
+
+}
+
