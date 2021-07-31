@@ -35,11 +35,7 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         val view = _binding.root
         setContentView(view)
-        //steps
-        //0) populate example list
-        //1) implement the buttons
-        //2) insertitem and removeitem implement
-        //3) implement the recycler view
+
         createExampleList()
         setButtons()
         buildRecyclerView()
@@ -75,8 +71,6 @@ class MainActivity : AppCompatActivity() {
         mEditTextRemove = _binding.editTextRemove
         mButtonRemove = _binding.buttonRemove
 
-        //https://stackoverflow.com/questions/44301301/android-how-to-achieve-setonclicklistener-in-kotlin
-        //to implement onClick in kotlin
         mButtonInsert.setOnClickListener {
             val position: Int = mEditTextInsert.text.toString().toInt()
             if (position < mExampleList.size && position >= 0) {
@@ -92,17 +86,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun toast() {
-        Toast.makeText(this@MainActivity,
+        Toast.makeText(
+            this@MainActivity,
             "Enter valid position between 0 and current list size.",
-            Toast.LENGTH_LONG).show()
-        //https://stackoverflow.com/questions/36826004/how-do-you-display-a-toast-using-kotlin-on-android
-        //for toast making
+            Toast.LENGTH_LONG
+        ).show()
     }
 
 
     private fun removeItem(position: Int) {
-        //removing the item from given position
-        //came here from adapter
         mExampleList.removeAt(position)
         mAdapter?.notifyItemRemoved(position)
     }
@@ -110,37 +102,18 @@ class MainActivity : AppCompatActivity() {
 
     private fun insertItem(position: Int) {
         //by default adding, android icon only
-        mExampleList.add(position,
-            ExampleItem(R.drawable.ic_audio, "New item at $position", "This is line2"))
+        mExampleList.add(
+            position,
+            ExampleItem(R.drawable.ic_audio, "New item at $position", "This is line2")
+        )
         mAdapter?.notifyItemInserted(position)
     }
-
-
-
-
 
     //3 build recycler view
     private fun buildRecyclerView() {
         mRecyclerView = binding.recyclerView
-        mRecyclerView?.setHasFixedSize(true)
-        mLayoutManager = LinearLayoutManager(this)
-        mAdapter = ExampleItemAdapter(mExampleList)
-
-        mRecyclerView?.layoutManager = mLayoutManager
-        mRecyclerView?.adapter = mAdapter
-
-        mAdapter?.setOnItemClickListener(object : ExampleItemAdapter.OnItemClickListener {
-            override fun onItemClick(position: Int) {
-                changeItem(position, "Clicked")
-                //mExampleList.get(position).changeText1("Clicked");
-            }
-
-            override fun onDeleteClick(position: Int) {
-                removeItem(position)
-            }
-        })//mAdapter custom function to attatch mListener to listener is invoked so that our
-        //adapter works as wished
-
+        mRecyclerView?.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
+        mRecyclerView?.adapter = ExampleItemAdapter(mExampleList, this)
     }
 
     private fun changeItem(position: Int, s: String) {
@@ -148,23 +121,4 @@ class MainActivity : AppCompatActivity() {
         //called dataclass function specified and changed its text
         mAdapter?.notifyItemChanged(position)
     }
-
-
-    //onCreate-> 1)createExampleList-> 2) setButtons()-> 3)buildRecyclerView()
-    //1) createExampleList--> in global variable of arraylist, put the lists. add the values--
-    //--> for this already created ExampleItemViewModel data class
-
-    //2)setButtons-- insert, remove buttons and editTextz--> calls insertItem(),removeItem(),onClick with position of list element
-    //insertItem() and removeItem()-->
-    //in mExampleList.add and mExampleList.remove along with mAdapter.notifyItemInserted or .notifyItemRemoved with position
-    //
-    //For understanding the mAdapter and its class The adapter--->go to ExampleItemAdapter .
-    //onItemClick and OnDeleteClick mentioned in interface are here in mainActivity--inside RecyclerView
-
-    //In buildRecyclerView
-    //assign data to member variables to adapter, recyclerView and layoutManager
-    //call a custom setOnItemClickListener() created in Adapter class
-    //to do an itemClick and onItemClick-- change and remove the items-- we have a custom function -- changeItem() for the same
-    // PS:
-    //  setHasfixedSize(true)-- overflow link: https://stackoverflow.com/questions/28709220/understanding-recyclerview-sethasfixedsize
 }
