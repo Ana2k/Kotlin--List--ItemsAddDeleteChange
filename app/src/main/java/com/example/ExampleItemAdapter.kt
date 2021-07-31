@@ -13,7 +13,8 @@ import com.example.recyclereviewplaylistyt.databinding.ExampleItemBinding
 
 class ExampleItemAdapter(
     private val mExampleList: ArrayList<ExampleItem>,
-    val context: Context
+    val context: Context,
+    private val exampleViewModel: ExampleViewModel
 ) :
     RecyclerView.Adapter<ExampleViewHolder>() {
 
@@ -23,22 +24,15 @@ class ExampleItemAdapter(
     ): ExampleViewHolder {
         val inflater = LayoutInflater.from(context)
         val binding = ExampleItemBinding.inflate(inflater, parent, false)
-        return ExampleViewHolder(binding)
+        return ExampleViewHolder(binding, exampleViewModel)
     }
 
     override fun onBindViewHolder(holder: ExampleViewHolder, position: Int) {
-//        val currentItem: ExampleItem = mExampleList[position]
-//        holder.mTextViewFirst.text = currentItem.text1
-//        holder.mTextViewSecond.text = currentItem.text2
-//        holder.mImageView.setImageResource(currentItem.imageResource)
         val item = mExampleList[position]
-        holder.bind(item)
-
+        holder.bind(item, position)
     }
 
     override fun getItemCount(): Int {
         return mExampleList.size
     }
-
-//
 }
