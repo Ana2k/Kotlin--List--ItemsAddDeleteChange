@@ -26,22 +26,22 @@ class ExampleViewModel(
 
     fun createExampleList() {
         var sample = ArrayList<ExampleItem>()
-        sample.add(ExampleItem(R.drawable.ic_audio, "Line3", "Line4"))
-        sample.add(ExampleItem(R.drawable.ic_android, "Line1", "Line2"))
-        sample.add(ExampleItem(R.drawable.ic_audio, "Line3", "Line4"))
-        sample.add(ExampleItem(R.drawable.ic_sun, "Line5", "Line6"))
-        sample.add(ExampleItem(R.drawable.ic_android, "Line 7", "Line 8"))
-        sample.add(ExampleItem(R.drawable.ic_audio, "Line 9", "Line 10"))
-        sample.add(ExampleItem(R.drawable.ic_sun, "Line 11", "Line 12"))
-        sample.add(ExampleItem(R.drawable.ic_android, "Line 13", "Line 14"))
-        sample.add(ExampleItem(R.drawable.ic_audio, "Line 15", "Line 16"))
-        sample.add(ExampleItem(R.drawable.ic_sun, "Line 17", "Line 18"))
-        sample.add(ExampleItem(R.drawable.ic_android, "Line 19", "Line 20"))
-        sample.add(ExampleItem(R.drawable.ic_audio, "Line 21", "Line 22"))
-        sample.add(ExampleItem(R.drawable.ic_sun, "Line 23", "Line 24"))
-        sample.add(ExampleItem(R.drawable.ic_android, "Line 25", "Line 26"))
-        sample.add(ExampleItem(R.drawable.ic_audio, "Line 27", "Line 28"))
-        sample.add(ExampleItem(R.drawable.ic_sun, "Line 29", "Line 30"))
+        sample.add(ExampleItem(R.drawable.ic_audio, "Line3", "Line4", 0L))
+        sample.add(ExampleItem(R.drawable.ic_android, "Line1", "Line2", 1L))
+        sample.add(ExampleItem(R.drawable.ic_audio, "Line3", "Line4", 2L))
+        sample.add(ExampleItem(R.drawable.ic_sun, "Line5", "Line6", 3L))
+        sample.add(ExampleItem(R.drawable.ic_android, "Line 7", "Line 8", 4L))
+        sample.add(ExampleItem(R.drawable.ic_audio, "Line 9", "Line 10", 5L))
+        sample.add(ExampleItem(R.drawable.ic_sun, "Line 11", "Line 12", 6L))
+        sample.add(ExampleItem(R.drawable.ic_android, "Line 13", "Line 14", 7L))
+        sample.add(ExampleItem(R.drawable.ic_audio, "Line 15", "Line 16", 8L))
+        sample.add(ExampleItem(R.drawable.ic_sun, "Line 17", "Line 18", 9L))
+        sample.add(ExampleItem(R.drawable.ic_android, "Line 19", "Line 20", 10L))
+        sample.add(ExampleItem(R.drawable.ic_audio, "Line 21", "Line 22", 11L))
+        sample.add(ExampleItem(R.drawable.ic_sun, "Line 23", "Line 24", 12L))
+        sample.add(ExampleItem(R.drawable.ic_android, "Line 25", "Line 26", 13L))
+        sample.add(ExampleItem(R.drawable.ic_audio, "Line 27", "Line 28", 14L))
+        sample.add(ExampleItem(R.drawable.ic_sun, "Line 29", "Line 30", 15L))
         _mExampleList.value = sample
     }
 
@@ -49,7 +49,7 @@ class ExampleViewModel(
         if (position < _mExampleList.value?.size as Int && position >= 0) {
             _mExampleList.value?.add(
                 position,
-                ExampleItem(R.drawable.ic_audio, "New item at $position", "This is line2")
+                ExampleItem(R.drawable.ic_audio, "New item at $position", "This is line2", 16L)
             )
         } else {
             toast("Enter valid position between 0 and current list size.")
@@ -62,6 +62,10 @@ class ExampleViewModel(
             mssg,
             Toast.LENGTH_LONG
         ).show()
+    }
+
+    fun onExampleDeleteClicked(id: Long) {
+        Toast.makeText(context, "${id} has been clicked for removal", Toast.LENGTH_SHORT).show()
     }
 
     fun removeItem(position: Int) {

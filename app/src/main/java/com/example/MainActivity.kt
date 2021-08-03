@@ -1,6 +1,7 @@
 package com.example
 
 import android.annotation.SuppressLint
+import android.icu.lang.UCharacter
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -59,17 +60,16 @@ class MainActivity : AppCompatActivity() {
         setButtons()
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     private fun setupViewModelObservers() {
-        exampleViewModel.mExampleList.observe(this, Observer { newExampleList ->
-            val initialLength = mExampleList.size
-            val finalLength = newExampleList.size
-            mExampleList = newExampleList
-            if (initialLength > finalLength) {
-                mRecyclerView.adapter = ExampleItemAdapter(mExampleList, this, exampleViewModel)
-            }
-            mRecyclerView.adapter?.notifyDataSetChanged()
-        })
+//        exampleViewModel.mExampleList.observe(this, Observer { newExampleList ->
+////            val initialLength = mExampleList.size
+////            val finalLength = newExampleList.size
+////            mExampleList = newExampleList
+////            if (initialLength > finalLength) {
+////                mRecyclerView.adapter = ExampleItemAdapter(mExampleList, this, exampleViewModel)
+////            }
+////            mRecyclerView.adapter?.notifyDataSetChanged()
+//        })
     }
 
 
@@ -93,15 +93,17 @@ class MainActivity : AppCompatActivity() {
 
     //3 build recycler view
     private fun buildRecyclerView() {
-
-        mRecyclerView.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        mRecyclerView.adapter = ExampleItemAdapter(mExampleList, this, exampleViewModel)
+        val manager = LinearLayoutManager(this)
+        val adapter = ExampleItemAdapter(ExampleItemListener { exampleId->
+            exampleViewModel.onExampleDeleteClicked(exampleId)
+        })
+        binding.recyclerView.adapter=adapter
+        binding.recyclerView.layoutManager=manager
+        exampleViewModel.mExampleList.observe(this, Observer {
+            it?.let {
+                adapter.submitList(it)
+            }
+        })
     }
 
-//    private fun changeItem(position: Int, s: String) {
-//        mExampleList[position].changeText1(s)
-//        //called dataclass function specified and changed its text
-//        mAdapter?.notifyItemChanged(position)
-//    }
 }

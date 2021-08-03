@@ -1,38 +1,24 @@
 package com.example
 
-import android.content.Context
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
-import com.example.recyclereviewplaylistyt.R
-import com.example.recyclereviewplaylistyt.databinding.ExampleItemBinding
+import com.example.ExampleItem
+import com.example.ExampleViewHolder
 
 
-class ExampleItemAdapter(
-    private val mExampleList: ArrayList<ExampleItem>,
-    val context: Context,
-    private val exampleViewModel: ExampleViewModel
-) :
-    RecyclerView.Adapter<ExampleViewHolder>() {
-
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): ExampleViewHolder {
-        val inflater = LayoutInflater.from(context)
-        val binding = ExampleItemBinding.inflate(inflater, parent, false)
-        return ExampleViewHolder(binding, exampleViewModel)
-    }
+class ExampleItemAdapter(val clickListener: ExampleItemListener) :
+    androidx.recyclerview.widget.ListAdapter<ExampleItem, ExampleViewHolder>(ExampleDiffCallback()) {
 
     override fun onBindViewHolder(holder: ExampleViewHolder, position: Int) {
-        val item = mExampleList[position]
-        holder.bind(item, position)
+        val item = getItem(position)
+        holder.bind(clickListener, item)
     }
 
-    override fun getItemCount(): Int {
-        return mExampleList.size
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExampleViewHolder {
+        return ExampleViewHolder.from(parent)
     }
 }
+
+class ExampleItemListener(val clickListener: (id: Long) -> Unit) {
+    fun onClick(item: ExampleItem) = clickListener(item.id)
+}
+

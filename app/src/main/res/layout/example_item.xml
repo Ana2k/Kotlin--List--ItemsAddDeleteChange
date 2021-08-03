@@ -1,53 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    app:cardCornerRadius="4dp">
-    <!--    <data>-->
-    <!--        <variable-->
-    <!--            android:name= "item"-->
-    <!--            android:type= "com.example.ExampleItem" />&lt;!&ndash;data class name the view model is &ndash;&gt;-->
-    <!--    </data>-->
-    <RelativeLayout
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.example.ExampleItem" />
+
+        <variable
+            name="clickListener"
+            type="com.example.ExampleItemListener" />
+
+    </data>
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="4dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:cardCornerRadius="4dp">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:padding="2dp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="4dp">
 
-        <TextView
-            android:id="@+id/textViewFirst"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/imageView"
-            android:text="Line1"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="2dp"
+                app:exampleImage="@{item}" />
 
-        <TextView
-            android:id="@+id/textViewSecond"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textViewFirst"
-            android:layout_toEndOf="@+id/imageView"
-            android:text="Line2"
-            android:textSize="15sp" />
+            <TextView
+                android:id="@+id/textViewFirst"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/imageView"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:exampleTextViewFirst="@{item}" />
 
-        <ImageView
-            android:id="@+id/image_delete"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:src="@drawable/ic_delete" />
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/textViewSecond"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textViewFirst"
+                android:layout_toEndOf="@+id/imageView"
+                android:textSize="15sp"
+                app:exampleTextViewSecond="@{item}" />
 
-</androidx.cardview.widget.CardView>
+            <ImageView
+                android:id="@+id/image_delete"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentTop="true"
+                android:onClick="@{() -> clickListener.onClick(item)}"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/ic_delete" />
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

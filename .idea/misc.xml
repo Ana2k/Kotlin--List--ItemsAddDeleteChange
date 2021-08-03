@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/android projects/Recycler-and-CardView/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/android projects/Recycler-and-CardView/app/src/main/res/layout/example_item.xml" value="0.2617753623188406" />
         <entry key="..\:/android projects/itemVIewer/app/src/main/res/drawable/ic_audio_background.xml" value="0.1" />
         <entry key="..\:/android projects/itemVIewer/app/src/main/res/drawable/ic_audio_foreground.xml" value="0.1" />
         <entry key="..\:/android projects/itemVIewer/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />

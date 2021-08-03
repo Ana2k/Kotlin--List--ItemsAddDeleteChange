@@ -1,32 +1,37 @@
 package com.example
 
-import android.util.Log
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recyclereviewplaylistyt.databinding.ExampleItemBinding
-import java.text.FieldPosition
 
-class ExampleViewHolder(
-    private val binding: ExampleItemBinding,
-    private val viewModel: ExampleViewModel
+class ExampleViewHolder private constructor(
+   val binding: ExampleItemBinding,
 ) :
     RecyclerView.ViewHolder(binding.root) {
-    init {
-//        binding.imageDelete.setOnClickListener {
-//            Log.d("Lord Krishna", "On DeleteItem CLicked")
-//        }
 
-        binding.textViewFirst.setOnClickListener {
-            Log.d("Lord Krishna", "Text View First clicked")
-        }
+    fun bind(clickListener:ExampleItemListener, item: ExampleItem) {
+        binding.item = item
+        binding.clickListener = clickListener
+        binding.executePendingBindings()
     }
 
-    fun bind(item: ExampleItem, position: Int) {
-        binding.textViewFirst.text = item.text1
-        binding.textViewSecond.text = item.text2
-        binding.imageView.setImageResource(item.imageResource)
-        binding.imageDelete.setOnClickListener {
-            Log.d("Lord Krishna", "Item removal button clicked")
-            viewModel.removeItem(position)
+    companion object {
+        fun from(parent: ViewGroup): ExampleViewHolder {
+            val layoutInflater = LayoutInflater.from(parent.context)
+            val binding = ExampleItemBinding.inflate(layoutInflater,parent,false)
+            return ExampleViewHolder(binding)
         }
+    }
+}
+
+class ExampleDiffCallback : DiffUtil.ItemCallback<ExampleItem>() {
+    override fun areItemsTheSame(oldItem: ExampleItem, newItem: ExampleItem): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(oldItem: ExampleItem, newItem: ExampleItem): Boolean {
+        return oldItem == newItem
     }
 }
