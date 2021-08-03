@@ -17,8 +17,8 @@ class ExampleItemAdapter(val clickListener: ExampleItemListener) :
         return ExampleViewHolder.from(parent)
     }
 }
-
 class ExampleItemListener(val clickListener: (id: Long) -> Unit) {
     fun onClick(item: ExampleItem) = clickListener(item.id)
+
 }
 

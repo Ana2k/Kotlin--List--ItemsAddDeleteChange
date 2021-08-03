@@ -3,20 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/android projects/Recycler-and-CardView/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/android projects/Recycler-and-CardView/app/src/main/res/layout/example_item.xml" value="0.2617753623188406" />
-        <entry key="..\:/android projects/itemVIewer/app/src/main/res/drawable/ic_audio_background.xml" value="0.1" />
-        <entry key="..\:/android projects/itemVIewer/app/src/main/res/drawable/ic_audio_foreground.xml" value="0.1" />
-        <entry key="..\:/android projects/itemVIewer/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
-        <entry key="..\:/android projects/itemVIewer/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1" />
-        <entry key="..\:/android projects/itemVIewer/app/src/main/res/layout/activity_main.xml" value="0.13221884498480244" />
-        <entry key="..\:/android projects/itemVIewer/app/src/main/res/layout/example_item.xml" value="0.24" />
-        <entry key="..\:/android projects/itemVIewer/app/src/main/res/mipmap-anydpi-v26/ic_audio.xml" value="0.29270833333333335" />
-        <entry key="..\:/android projects/itemVIewer/app/src/main/res/mipmap-anydpi-v26/ic_audio_round.xml" value="0.1" />
-        <entry key="..\:/android projects/itemVIewer/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
-        <entry key="..\:/android projects/itemVIewer/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
-        <entry key="..\:/android projects/itemVIewer/app/src/main/res/mipmap-anydpi-v26/ic_sun.xml" value="0.1" />
-        <entry key="..\:/android projects/itemVIewer/app/src/main/res/mipmap-anydpi-v26/ic_sun_round.xml" value="0.1" />
+
       </map>
     </option>
   </component>
