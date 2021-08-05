@@ -11,6 +11,7 @@
 <!--            android:type= "com.example.ExampleItem" />&lt;!&ndash;data class name the view model is &ndash;&gt;-->
 <!--    </data>-->
     <RelativeLayout
+        android:id="@+id/list_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="4dp">
@@ -39,7 +40,7 @@
             android:layout_below="@+id/textViewFirst"
             android:layout_toEndOf="@+id/imageView"/>
         <ImageView
-            android:id="@+id/image_delete"
+            android:id="@+id/imageDelete"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/ic_delete"

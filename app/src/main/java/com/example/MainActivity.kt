@@ -91,12 +91,17 @@ class MainActivity : AppCompatActivity() {
                 mViewModel?.toast("Enter non null value!")
             }
         }
-//        mButtonRemove.setOnClickListener {
-//            val position: Int = mEditTextRemove.text.toString().toInt()
-//            if (position < mExampleList.size && position >= 0) {
-//                removeItem(position)
-//            } else toast()
-//        }
+        mButtonRemove.setOnClickListener {
+            try {
+                val position: Int = mEditTextRemove.text.toString().toInt()
+                mViewModel?.removeItem(position)
+            }
+            catch (e: Exception){
+                mViewModel?.toast("Enter non null value!")
+            }
+        }
+
+
     }
 
 

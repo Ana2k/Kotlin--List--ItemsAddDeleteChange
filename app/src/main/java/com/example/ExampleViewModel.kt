@@ -12,7 +12,6 @@ import com.example.recyclereviewplaylistyt.R
 import kotlin.math.min
 
 class ExampleViewModel(val context: Context) : ViewModel() {
-    //TODO() -- add recyclerView to this
 
     //all working code shifted to here from mainActvity
     //context should pass
@@ -60,13 +59,13 @@ class ExampleViewModel(val context: Context) : ViewModel() {
         //by default adding, android icon only
         var listItem = _mExampleList.value
         //just add inside sample the update _mExampleList.value= sample
-        if (position< listItem?.size as Int && position!=null && position>=0) {
+        if (position< _mExampleList.value?.size as Int && position!=null && position>=0) {
 
-        toast("Inserted Item at $position")
+            toast("Removed Item at $position")
         }
-    else{
-        toast("Enter valid position between 0 and current list size.")
-    }
+        else{
+            toast("Enter valid position between 0 and current list size.")
+        }
 
 
     }
@@ -86,11 +85,10 @@ class ExampleViewModel(val context: Context) : ViewModel() {
         }
     }
 
-//    fun changeItem(position: Int, s: String) {
-//        _mExampleList.value?.get(position)?.changeText1(s)
-//        //called dataclass function specified and changed its text
-//        mAdapter?.notifyItemChanged(position)
-//    }
+    fun changeItem(position: Int, s: String) {
+        _mExampleList.value?.get(position)?.changeText1(s)
+        //called dataclass function specified and changed its text
+    }
 
     fun toast(msg: String) {
         Toast.makeText(context,
