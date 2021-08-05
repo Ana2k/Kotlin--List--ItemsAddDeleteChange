@@ -6,8 +6,6 @@ import com.example.recyclereviewplaylistyt.databinding.ExampleItemBinding
 
 class ExampleViewHolder(private val binding: ExampleItemBinding,private val viewModel: ExampleViewModel) :
     RecyclerView.ViewHolder(binding.root) {
-
-
     fun bind(item: ExampleItem,position: Int) {
         binding.textViewFirst.text = item.text1
         binding.textViewSecond.text = item.text2
@@ -16,7 +14,10 @@ class ExampleViewHolder(private val binding: ExampleItemBinding,private val view
             Log.d("Lord Krishna", "Item removal button clicked")
             viewModel.removeItem(position)
         }//a kind of experimentation
-        binding.listItem.setOnClickListener{
+        binding.textViewFirst.setOnClickListener{
+            viewModel.changeItem(position,"Clicked")
+        }
+        binding.textViewSecond.setOnClickListener{
             viewModel.changeItem(position,"Clicked")
         }
     }

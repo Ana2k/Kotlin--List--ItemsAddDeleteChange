@@ -59,9 +59,17 @@ class ExampleViewModel(val context: Context) : ViewModel() {
         //by default adding, android icon only
         var listItem = _mExampleList.value
         //just add inside sample the update _mExampleList.value= sample
-        if (position< _mExampleList.value?.size as Int && position!=null && position>=0) {
-
+        if (position< _mExampleList.value?.size as Int && position>=0) {
+            listItem?.removeAt(position)
             toast("Removed Item at $position")
+//            var sample = ArrayList<ExampleItem>()
+//            val n = _mExampleList.value?.size as Int
+//            for (i in 0..n - 1) {
+//                if (i != position) {
+//                    sample.add(_mExampleList.value?.get(i) as ExampleItem)
+//                }
+//            }-- atm code
+            _mExampleList.value = listItem
         }
         else{
             toast("Enter valid position between 0 and current list size.")
