@@ -1,13 +1,16 @@
 package com.example
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.recyclereviewplaylistyt.R
 import com.example.recyclereviewplaylistyt.databinding.ActivityMainBinding
 
 
@@ -30,43 +33,45 @@ class MainActivity : AppCompatActivity() {
     private var mAdapter: ExampleItemAdapter? = null
     private var mLayoutManager: RecyclerView.LayoutManager? = null
 
+    //viewModel
+    private var mViewModel: ExampleViewModel? = null
+
+    //TODO() -- make a viewmodel object and call others via it.
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         val view = _binding.root
         setContentView(view)
+
+        val viewModelFactory = ExampleViewModelFactory(this)
+
+        mViewModel = ViewModelProvider(
+            this, viewModelFactory
+        ).get(ExampleViewModel::class.java)
         //steps
         //0) populate example list
         //1) implement the buttons
         //2) insertitem and removeitem implement
         //3) implement the recycler view
-        createExampleList()
-        setButtons()
+
+        mExampleList = mViewModel?.mExampleList?.value as ArrayList<ExampleItem>
+//had an error here earlier
+
+
         buildRecyclerView()
+        setUpViewModelObservers()
+        setButtons()
     }
 
-    //1
-    private fun createExampleList() {
-        mExampleList = ArrayList()
-//        val mExampleItem: ExampleItem = ExampleItem(R.drawable.ic_android,"Lineretstt","Line2Tesrt")
-//        mExampleList.add(mExampleItem)
-        mExampleList.add(ExampleItem(R.drawable.ic_android, "Line1", "Line2"))
-        mExampleList.add(ExampleItem(R.drawable.ic_audio, "Line3", "Line4"))
-        mExampleList.add(ExampleItem(R.drawable.ic_sun, "Line5", "Line6"))
-        //others
-        mExampleList.add(ExampleItem(R.drawable.ic_android, "Line 7", "Line 8"))
-        mExampleList.add(ExampleItem(R.drawable.ic_audio, "Line 9", "Line 10"))
-        mExampleList.add(ExampleItem(R.drawable.ic_sun, "Line 11", "Line 12"))
-        mExampleList.add(ExampleItem(R.drawable.ic_android, "Line 13", "Line 14"))
-        mExampleList.add(ExampleItem(R.drawable.ic_audio, "Line 15", "Line 16"))
-        mExampleList.add(ExampleItem(R.drawable.ic_sun, "Line 17", "Line 18"))
-        mExampleList.add(ExampleItem(R.drawable.ic_android, "Line 19", "Line 20"))
-        mExampleList.add(ExampleItem(R.drawable.ic_audio, "Line 21", "Line 22"))
-        mExampleList.add(ExampleItem(R.drawable.ic_sun, "Line 23", "Line 24"))
-        mExampleList.add(ExampleItem(R.drawable.ic_android, "Line 25", "Line 26"))
-        mExampleList.add(ExampleItem(R.drawable.ic_audio, "Line 27", "Line 28"))
-        mExampleList.add(ExampleItem(R.drawable.ic_sun, "Line 29", "Line 30"))
-    }
+    @SuppressLint("NotifyDataSetChanged")
+    private fun setUpViewModelObservers() {
+        mViewModel?.mExampleList?.observe(this,{ observer ->
+            mRecyclerView?.adapter = ExampleItemAdapter(this,mExampleList, mViewModel!!)
+        })
+
+    }//removeItem
+
 
     //2
     private fun setButtons() {
@@ -78,44 +83,21 @@ class MainActivity : AppCompatActivity() {
         //https://stackoverflow.com/questions/44301301/android-how-to-achieve-setonclicklistener-in-kotlin
         //to implement onClick in kotlin
         mButtonInsert.setOnClickListener {
-            val position: Int = mEditTextInsert.text.toString().toInt()
-            if (position < mExampleList.size && position >= 0) {
-                insertItem(position)
-            } else toast()
+            try {
+                val position: Int = mEditTextInsert.text.toString().toInt()
+                mViewModel?.insertItem(position)
+            }
+            catch (e: Exception){
+                mViewModel?.toast("Enter non null value!")
+            }
         }
-        mButtonRemove.setOnClickListener {
-            val position: Int = mEditTextRemove.text.toString().toInt()
-            if (position < mExampleList.size && position >= 0) {
-                removeItem(position)
-            } else toast()
-        }
+//        mButtonRemove.setOnClickListener {
+//            val position: Int = mEditTextRemove.text.toString().toInt()
+//            if (position < mExampleList.size && position >= 0) {
+//                removeItem(position)
+//            } else toast()
+//        }
     }
-
-    private fun toast() {
-        Toast.makeText(this@MainActivity,
-            "Enter valid position between 0 and current list size.",
-            Toast.LENGTH_LONG).show()
-        //https://stackoverflow.com/questions/36826004/how-do-you-display-a-toast-using-kotlin-on-android
-        //for toast making
-    }
-
-
-    private fun removeItem(position: Int) {
-        //removing the item from given position
-        //came here from adapter
-        mExampleList.removeAt(position)
-        mAdapter?.notifyItemRemoved(position)
-    }
-
-
-    private fun insertItem(position: Int) {
-        //by default adding, android icon only
-        mExampleList.add(position,
-            ExampleItem(R.drawable.ic_audio, "New item at $position", "This is line2"))
-        mAdapter?.notifyItemInserted(position)
-    }
-
-
 
 
 
@@ -123,30 +105,12 @@ class MainActivity : AppCompatActivity() {
     private fun buildRecyclerView() {
         mRecyclerView = binding.recyclerView
         mRecyclerView?.setHasFixedSize(true)
-        mLayoutManager = LinearLayoutManager(this)
-        mAdapter = ExampleItemAdapter(mExampleList)
 
-        mRecyclerView?.layoutManager = mLayoutManager
-        mRecyclerView?.adapter = mAdapter
-
-        mAdapter?.setOnItemClickListener(object : ExampleItemAdapter.OnItemClickListener {
-            override fun onItemClick(position: Int) {
-                changeItem(position, "Clicked")
-                //mExampleList.get(position).changeText1("Clicked");
-            }
-
-            override fun onDeleteClick(position: Int) {
-                removeItem(position)
-            }
-        })//mAdapter custom function to attatch mListener to listener is invoked so that our
+        mRecyclerView?.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
+        mRecyclerView?.adapter = ExampleItemAdapter(this,mExampleList,mViewModel!!)
+    }//mAdapter custom function to attatch mListener to listener is invoked so that our
         //adapter works as wished
 
-    }
-
-    private fun changeItem(position: Int, s: String) {
-        mExampleList[position].changeText1(s)
-        //called dataclass function specified and changed its text
-        mAdapter?.notifyItemChanged(position)
     }
 
 
@@ -167,4 +131,3 @@ class MainActivity : AppCompatActivity() {
     //to do an itemClick and onItemClick-- change and remove the items-- we have a custom function -- changeItem() for the same
     // PS:
     //  setHasfixedSize(true)-- overflow link: https://stackoverflow.com/questions/28709220/understanding-recyclerview-sethasfixedsize
-}
