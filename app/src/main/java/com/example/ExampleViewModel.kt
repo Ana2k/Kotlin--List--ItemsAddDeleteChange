@@ -3,6 +3,7 @@ package com.example
 import android.app.Application
 import android.app.ApplicationExitInfo
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -96,6 +97,7 @@ class ExampleViewModel(val context: Context) : ViewModel() {
     fun changeItem(position: Int, s: String) {
         _mExampleList.value?.get(position)?.changeText1(s)
         //called dataclass function specified and changed its text
+        Log.d("hel", _mExampleList.value.toString())
     }
 
     fun toast(msg: String) {
