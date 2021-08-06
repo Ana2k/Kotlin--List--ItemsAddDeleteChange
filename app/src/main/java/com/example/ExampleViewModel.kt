@@ -95,9 +95,13 @@ class ExampleViewModel(val context: Context) : ViewModel() {
     }
 
     fun changeItem(position: Int, s: String) {
-        _mExampleList.value?.get(position)?.changeText1(s)
+        Log.d("Hel", _mExampleList.value?.get(position).toString())
+        var currItem = _mExampleList.value
+        currItem?.get(position)?.changeText1(s)
         //called dataclass function specified and changed its text
-        Log.d("hel", _mExampleList.value.toString())
+        //update the _mExampleList.value.
+        _mExampleList.value = currItem
+        Log.d("Hel", _mExampleList.value?.get(position).toString())
     }
 
     fun toast(msg: String) {
