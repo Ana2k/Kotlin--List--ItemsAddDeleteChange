@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<data>
+        <variable
+            name= "item"
+            type= "com.example.ExampleItem" /><!--data class name the view model is -->
+        <variable
+            name = "clickListener"
+            type= "com.example.ExampleItemListener"
+             /><!--data class name the view model is -->
+
+    </data>
+
+<androidx.cardview.widget.CardView
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="4dp">
-<!--    <data>-->
-<!--        <variable-->
-<!--            android:name= "item"-->
-<!--            android:type= "com.example.ExampleItem" />&lt;!&ndash;data class name the view model is &ndash;&gt;-->
-<!--    </data>-->
     <RelativeLayout
         android:id="@+id/list_item"
         android:layout_width="match_parent"
@@ -20,7 +27,9 @@
             android:id="@+id/imageView"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:padding="2dp"/>
+            android:padding="2dp"
+            app:imageView="@{item}"
+            />
         <TextView
             android:id="@+id/textViewFirst"
             android:layout_width="wrap_content"
@@ -30,23 +39,31 @@
             android:textColor="@color/black"
             android:layout_alignParentTop="true"
             android:layout_toEndOf="@+id/imageView"
-            android:text="Line1"/>
+            android:text="@string/line1"
+            app:textViewFirst="@{item}"
+            />
 
         <TextView
             android:id="@+id/textViewSecond"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Line2"
+            android:text="@string/line2"
             android:textSize="15sp"
             android:layout_below="@+id/textViewFirst"
-            android:layout_toEndOf="@+id/imageView"/>
+            android:layout_toEndOf="@+id/imageView"
+            app:textViewSecond="@{item}"
+            />
         <ImageView
             android:id="@+id/imageDelete"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/ic_delete"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"/>
+            android:layout_alignParentTop="true"
+            android:onClick="@{() -> clickListener.onClick(item)}"
+            />
     </RelativeLayout>
 
+
 </androidx.cardview.widget.CardView>
+</layout>

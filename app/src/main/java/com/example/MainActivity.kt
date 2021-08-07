@@ -30,8 +30,6 @@ class MainActivity : AppCompatActivity() {
 
     //recyclerview vars
     private var mRecyclerView: RecyclerView? = null
-    private var mAdapter: ExampleItemAdapter? = null
-    private var mLayoutManager: RecyclerView.LayoutManager? = null
 
     //viewModel
     private var mViewModel: ExampleViewModel? = null
@@ -60,18 +58,8 @@ class MainActivity : AppCompatActivity() {
 
 
         buildRecyclerView()
-        setUpViewModelObservers()
         setButtons()
     }
-
-    @SuppressLint("NotifyDataSetChanged")
-    private fun setUpViewModelObservers() {
-        mViewModel?.mExampleList?.observe(this,{ observer ->
-            mRecyclerView?.adapter = ExampleItemAdapter(this,mExampleList, mViewModel!!)
-        })
-
-    }//removeItem
-
 
     //2
     private fun setButtons() {
@@ -86,17 +74,15 @@ class MainActivity : AppCompatActivity() {
             try {
                 val position: Int = mEditTextInsert.text.toString().toInt()
                 mViewModel?.insertItem(position)
-            }
-            catch (e: Exception){
+            } catch (e: Exception) {
                 mViewModel?.toast("Enter non null value!")
-            }
+            }//to prevent null app crash
         }
         mButtonRemove.setOnClickListener {
             try {
                 val position: Int = mEditTextRemove.text.toString().toInt()
                 mViewModel?.removeItem(position)
-            }
-            catch (e: Exception){
+            } catch (e: Exception) {
                 mViewModel?.toast("Enter non null value!")
             }
         }
@@ -105,34 +91,24 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
-    //3 build recycler view
+    //1 build recycler view
     private fun buildRecyclerView() {
         mRecyclerView = binding.recyclerView
         mRecyclerView?.setHasFixedSize(true)
 
-        mRecyclerView?.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
-        mRecyclerView?.adapter = ExampleItemAdapter(this,mExampleList,mViewModel!!)
+        mRecyclerView?.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        val adapter = ExampleItemAdapter(ExampleItemListener { id ->
+            mViewModel?.onDeleteItemClicked(id)
+        })//accepts a clickListener as a param
+        //observer of adapter lambda
+
+        mViewModel?.mExampleList?.observe(this, Observer {
+            adapter.submitList(it)
+        })
+
+
     }//mAdapter custom function to attatch mListener to listener is invoked so that our
-        //adapter works as wished
+    //adapter works as wished
 
-    }
-
-
-    //onCreate-> 1)createExampleList-> 2) setButtons()-> 3)buildRecyclerView()
-    //1) createExampleList--> in global variable of arraylist, put the lists. add the values--
-    //--> for this already created ExampleItemViewModel data class
-
-    //2)setButtons-- insert, remove buttons and editTextz--> calls insertItem(),removeItem(),onClick with position of list element
-    //insertItem() and removeItem()-->
-    //in mExampleList.add and mExampleList.remove along with mAdapter.notifyItemInserted or .notifyItemRemoved with position
-    //
-    //For understanding the mAdapter and its class The adapter--->go to ExampleItemAdapter .
-    //onItemClick and OnDeleteClick mentioned in interface are here in mainActivity--inside RecyclerView
-
-    //In buildRecyclerView
-    //assign data to member variables to adapter, recyclerView and layoutManager
-    //call a custom setOnItemClickListener() created in Adapter class
-    //to do an itemClick and onItemClick-- change and remove the items-- we have a custom function -- changeItem() for the same
-    // PS:
-    //  setHasfixedSize(true)-- overflow link: https://stackoverflow.com/questions/28709220/understanding-recyclerview-sethasfixedsize
+}
