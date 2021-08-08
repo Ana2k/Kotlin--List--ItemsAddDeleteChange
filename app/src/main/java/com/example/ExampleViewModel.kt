@@ -10,6 +10,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.recyclereviewplaylistyt.R
+import timber.log.Timber
 import java.lang.Math.random
 import kotlin.math.min
 import kotlin.math.roundToLong
@@ -87,7 +88,7 @@ class ExampleViewModel(val context: Context) : ViewModel() {
         //by default adding, android icon only
         var listItem = _mExampleList.value
         //just add inside sample the update _mExampleList.value= sample
-        if (position< listItem?.size as Int && position!=null && position>=0) {
+        if (position< listItem?.size as Int && position>=0) {
             id= (id+random()+15).roundToLong()
             listItem.add(position,
                 ExampleItem(R.drawable.ic_audio, "New item at $position", "This is line2",id))
@@ -99,23 +100,34 @@ class ExampleViewModel(val context: Context) : ViewModel() {
     }
     fun onDeleteItemClicked(id: Long){
         toast("You clicked $id for removal")
+        //now take the id and go to the one with the id???
+        //take thier position and send it to removeItem(position)
+        //but  how to extract the position if id is given?
+        //do we need to do this or is thier a better way?
+        //i have a hunch there is a better way
+        Timber.d(_mExampleList.value.toString())
+        var size = _mExampleList.value?.size
+        for(i in 0..size!!){
+            if id==item
+        }
+
     }
 
     fun changeItem(position: Int, s: String) {
-        Log.d("Hel", _mExampleList.value?.get(position).toString())
+        Timber.tag("Hel").d(_mExampleList.value?.get(position).toString())
         var currItem = _mExampleList.value
         currItem?.get(position)?.changeText1(s)
         //called dataclass function specified and changed its text
         //update the _mExampleList.value.
         _mExampleList.value = currItem
         toast("Item no $position was clicked!")
-        Log.d("Hel", _mExampleList.value?.get(position).toString())
+        Timber.tag("Hel").d(_mExampleList.value?.get(position).toString())
     }
 
     fun toast(msg: String) {
         Toast.makeText(context,
             msg,
-            Toast.LENGTH_LONG).show()
+            Toast.LENGTH_SHORT).show()
         //https://stackoverflow.com/questions/36826004/how-do-you-display-a-toast-using-kotlin-on-android
         //for toast making
     }

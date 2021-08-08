@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recyclereviewplaylistyt.databinding.ExampleItemBinding
+import timber.log.Timber
 
 class ExampleViewHolder(private val binding: ExampleItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
@@ -18,8 +19,10 @@ class ExampleViewHolder(private val binding: ExampleItemBinding) :
             // Use context from main app -> also supplies theme layout values!
             // Inflate XML. Last parameter: don't immediately attach new view to the parent view group
             val binding = ExampleItemBinding.inflate(inflater, parent, false)
+            Timber.d("Viewholder.from this was called")
             //so moral of story binding happens in onCreate and is named according to xml file name
-            return ExampleViewHolder(binding)
+
+            return ExampleViewHolder(binding)///is this recursion happening??
         }
     }
     fun bind(clickListener: ExampleItemListener,item: ExampleItem) {
@@ -34,10 +37,15 @@ class ExampleViewHolder(private val binding: ExampleItemBinding) :
 class ExampleItemDiffCallback :
     DiffUtil.ItemCallback<ExampleItem>() {
     override fun areItemsTheSame(oldItem: ExampleItem, newItem: ExampleItem): Boolean {
+        Timber.tag("areItems").d("reItemsTheSame this was called")
+
         return oldItem.id == newItem.id
+
     }
 
     override fun areContentsTheSame(oldItem: ExampleItem, newItem: ExampleItem): Boolean {
+        Timber.tag("areContentsSame").d("areContentssaame this was called")
+
         return oldItem == newItem
     }
 }

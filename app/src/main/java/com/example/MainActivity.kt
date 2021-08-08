@@ -7,11 +7,13 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.ktx.BuildConfig
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recyclereviewplaylistyt.databinding.ActivityMainBinding
+import timber.log.Timber
 
 
 class MainActivity : AppCompatActivity() {
@@ -34,13 +36,16 @@ class MainActivity : AppCompatActivity() {
     //viewModel
     private var mViewModel: ExampleViewModel? = null
 
-    //TODO() -- make a viewmodel object and call others via it.
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         val view = _binding.root
         setContentView(view)
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
 
         val viewModelFactory = ExampleViewModelFactory(this)
 
@@ -92,16 +97,18 @@ class MainActivity : AppCompatActivity() {
 
 
     //1 build recycler view
-    private fun buildRecyclerView() {
+    private fun buildRecyclerView() {//some error here only
         mRecyclerView = binding.recyclerView
         mRecyclerView?.setHasFixedSize(true)
 
         mRecyclerView?.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        val adapter = ExampleItemAdapter(ExampleItemListener { id ->
-            mViewModel?.onDeleteItemClicked(id)
+
+        val adapter = ExampleItemAdapter(ExampleItemListener { position ->
+            mViewModel?.removeItem(position)
         })//accepts a clickListener as a param
         //observer of adapter lambda
+        mRecyclerView?.adapter =adapter
 
         mViewModel?.mExampleList?.observe(this, Observer {
             adapter.submitList(it)
