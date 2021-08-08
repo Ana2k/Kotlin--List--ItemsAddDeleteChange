@@ -7,7 +7,10 @@
             type= "com.example.ExampleItem" /><!--data class name the view model is -->
         <variable
             name = "clickListener"
-            type= "com.example.ExampleItemListener"
+            type= "com.example.ExampleItemListener"/>
+    <variable
+        name = "clickChangeListener"
+        type= "com.example.ExampleItemChangeListener"
              /><!--data class name the view model is -->
 
     </data>
@@ -29,7 +32,7 @@
             android:layout_height="50dp"
             android:padding="2dp"
             app:imageView="@{item}"
-            android:onClick="@{() -> clickListener.onClick(item)}"
+            android:onClick="@{() -> clickChangeListener.onClick(item)}"
             />
         <TextView
             android:id="@+id/textViewFirst"
