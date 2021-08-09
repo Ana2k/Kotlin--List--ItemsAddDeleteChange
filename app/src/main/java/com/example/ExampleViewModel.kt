@@ -106,27 +106,27 @@ class ExampleViewModel(val context: Context) : ViewModel() {
         //do we need to do this or is thier a better way?
         //i have a hunch there is a better way
         Timber.d(_mExampleList.value.toString())
-        var size = _mExampleList.value?.size as Int
-        Timber.d(size.toString())
 
-//        var sample = ArrayList<ExampleItem>()
-//            val n = _mExampleList.value?.size as Int
-//            for (i in 0..n - 1) {
-//                if (i != position) {
-//                    sample.add(_mExampleList.value?.get(i) as ExampleItem)
-//                }
-//            }-- atm code
-        var i: Int=0
-        while(i<size){
-            val sample = _mExampleList.value?.get(i)
-            if(id==sample?.id){
-                removeItem(i)
-                size-=1
+        val sample = ArrayList<ExampleItem>()
+            val n = _mExampleList.value?.size as Int
+            for (i in 0 until n) {
+                val item = _mExampleList.value?.get(i)
+                if (id != item?.id) {
+                    sample.add(item as ExampleItem)
+                }
             }
-            else{
-                i+=1
-            }
-        }
+        _mExampleList.value = sample
+//        var i: Int=0
+//        while(i<size){
+//            val sample = _mExampleList.value?.get(i)
+//            if(id==sample?.id){
+//                removeItem(i)
+//                size-=1
+//            }
+//            else{
+//                i+=1
+//            }
+//        }
 //some of the cp logic
 
     }
@@ -136,9 +136,9 @@ class ExampleViewModel(val context: Context) : ViewModel() {
         Timber.tag("Hel").d("changeItem inside")
         val size = _mExampleList.value?.size
         if (size != null) {
-            for(i in 0..size -1){
+            for(i in 0..size -1) {
                 val sample = _mExampleList.value?.get(i)
-                if(id==sample?.id){
+                if (id == sample?.id) {
                     sample.changeText1(changeString)
                     break
                 }
