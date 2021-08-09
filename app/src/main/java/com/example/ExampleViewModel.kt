@@ -62,7 +62,7 @@ class ExampleViewModel(val context: Context) : ViewModel() {
         //removing the item from given position
         //came here from adapter
         //by default adding, android icon only
-        var listItem = _mExampleList.value
+        val listItem = _mExampleList.value
         //just add inside sample the update _mExampleList.value= sample
         if (position< _mExampleList.value?.size as Int && position>=0) {
             listItem?.removeAt(position)
@@ -86,7 +86,7 @@ class ExampleViewModel(val context: Context) : ViewModel() {
 
     fun insertItem(position: Int) {
         //by default adding, android icon only
-        var listItem = _mExampleList.value
+        val listItem = _mExampleList.value
         //just add inside sample the update _mExampleList.value= sample
         if (position< listItem?.size as Int && position>=0) {
             id= (id+random()+15).roundToLong()
@@ -106,22 +106,54 @@ class ExampleViewModel(val context: Context) : ViewModel() {
         //do we need to do this or is thier a better way?
         //i have a hunch there is a better way
         Timber.d(_mExampleList.value.toString())
-        var size = _mExampleList.value?.size
-        for(i in 0..size!!){
-            if id==item
+        var size = _mExampleList.value?.size as Int
+        Timber.d(size.toString())
+
+//        var sample = ArrayList<ExampleItem>()
+//            val n = _mExampleList.value?.size as Int
+//            for (i in 0..n - 1) {
+//                if (i != position) {
+//                    sample.add(_mExampleList.value?.get(i) as ExampleItem)
+//                }
+//            }-- atm code
+        var i: Int=0
+        while(i<size){
+            val sample = _mExampleList.value?.get(i)
+            if(id==sample?.id){
+                removeItem(i)
+                size-=1
+            }
+            else{
+                i+=1
+            }
         }
+//some of the cp logic
 
     }
 
-    fun changeItem(position: Int, s: String) {
-        Timber.tag("Hel").d(_mExampleList.value?.get(position).toString())
-        var currItem = _mExampleList.value
-        currItem?.get(position)?.changeText1(s)
-        //called dataclass function specified and changed its text
-        //update the _mExampleList.value.
-        _mExampleList.value = currItem
-        toast("Item no $position was clicked!")
-        Timber.tag("Hel").d(_mExampleList.value?.get(position).toString())
+    fun changeItem(id: Long) {
+        val changeString = "Clicked on this"
+        Timber.tag("Hel").d("changeItem inside")
+        val size = _mExampleList.value?.size
+        if (size != null) {
+            for(i in 0..size -1){
+                val sample = _mExampleList.value?.get(i)
+                if(id==sample?.id){
+                    sample.changeText1(changeString)
+                    break
+                }
+            }
+        }
+        else{
+            toast("Size of list is null cant change elements.")
+        }
+//        var currItem = _mExampleList.value
+//        currItem?.get(position)?.changeText1(s)
+//        //called dataclass function specified and changed its text
+//        //update the _mExampleList.value.
+//        _mExampleList.value = currItem
+//        toast("Item no $position was clicked!")
+//        Timber.tag("Hel").d(_mExampleList.value?.get(position).toString())
     }
 
     fun toast(msg: String) {

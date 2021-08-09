@@ -104,9 +104,13 @@ class MainActivity : AppCompatActivity() {
         mRecyclerView?.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        val adapter = ExampleItemAdapter(ExampleItemListener { position ->
-            mViewModel?.removeItem(position)
-        })//accepts a clickListener as a param
+        val adapter = ExampleItemAdapter(ExampleItemListener { id ->
+            mViewModel?.onDeleteItemClicked(id)
+        },
+            ExampleItemChangeTextListener { id ->
+                mViewModel?.changeItem(id)
+            }
+        )//accepts a clickListener as a param
         //observer of adapter lambda
         mRecyclerView?.adapter =adapter
 

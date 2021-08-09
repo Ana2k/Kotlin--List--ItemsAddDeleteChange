@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.recyclereviewplaylistyt.databinding.ExampleItemBinding
 
 
-class ExampleItemAdapter(private val clickListener: ExampleItemListener) :
+class ExampleItemAdapter(private val clickListener: ExampleItemListener,private val changeTextListener: ExampleItemChangeTextListener) :
     ListAdapter<ExampleItem, ExampleViewHolder>(ExampleItemDiffCallback()) {
     //1) create the viewHolders
     //2) create inside code of CreateView holder
@@ -28,8 +28,11 @@ class ExampleItemAdapter(private val clickListener: ExampleItemListener) :
     }
 
 }
+//both the listeners
  class ExampleItemListener(val clickListener: (id:Long)->Unit){
      fun onClick(item: ExampleItem) = clickListener(item.id)
  }
-
+class ExampleItemChangeTextListener(val changeTextListener: (id: Long)-> Unit){
+    fun onClick(item: ExampleItem) = changeTextListener(item.id)
+}
 
