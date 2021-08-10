@@ -40,14 +40,11 @@ class ExampleItemDiffCallback :
     DiffUtil.ItemCallback<ExampleItem>() {
     override fun areItemsTheSame(oldItem: ExampleItem, newItem: ExampleItem): Boolean {
         Timber.tag("areItems").d("reItemsTheSame this was called")
-
         return oldItem.id == newItem.id
-
     }
 
     override fun areContentsTheSame(oldItem: ExampleItem, newItem: ExampleItem): Boolean {
         Timber.tag("areContentsSame").d("areContentssaame this was called")
-
         return oldItem == newItem
     }
 }

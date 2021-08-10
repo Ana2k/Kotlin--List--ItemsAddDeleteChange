@@ -108,13 +108,13 @@ class ExampleViewModel(val context: Context) : ViewModel() {
         Timber.d(_mExampleList.value.toString())
 
         val sample = ArrayList<ExampleItem>()
-            val n = _mExampleList.value?.size as Int
-            for (i in 0 until n) {
-                val item = _mExampleList.value?.get(i)
-                if (id != item?.id) {
-                    sample.add(item as ExampleItem)
-                }
+        val n = _mExampleList.value?.size as Int
+        for (i in 0 until n) {
+            val item = _mExampleList.value?.get(i)
+            if (id != item?.id) {
+                sample.add(item as ExampleItem)
             }
+        }
         _mExampleList.value = sample
 //        var i: Int=0
 //        while(i<size){
@@ -131,22 +131,21 @@ class ExampleViewModel(val context: Context) : ViewModel() {
 
     }
 
-    fun changeItem(id: Long) {
+    fun changeItem(id: Long) {//CAtch-- id cannot be changed.
         val changeString = "Clicked on this"
         Timber.tag("Hel").d("changeItem inside")
-        val size = _mExampleList.value?.size
-        if (size != null) {
-            for(i in 0..size -1) {
-                val sample = _mExampleList.value?.get(i)
-                if (id == sample?.id) {
-                    sample.changeText1(changeString)
-                    break
-                }
+        val n = _mExampleList.value?.size as Int
+        var sample = ArrayList<ExampleItem>()
+
+        for (i in 0 until n) {
+            val currItem = _mExampleList.value?.get(i)
+            if (id == currItem?.id) {
+                currItem?.changeText1(changeString)
             }
+            sample.add(currItem as ExampleItem)
         }
-        else{
-            toast("Size of list is null cant change elements.")
-        }
+        _mExampleList.value = (sample)
+
 //        var currItem = _mExampleList.value
 //        currItem?.get(position)?.changeText1(s)
 //        //called dataclass function specified and changed its text

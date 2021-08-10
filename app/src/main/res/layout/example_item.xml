@@ -33,6 +33,7 @@
             android:layout_height="50dp"
             android:padding="2dp"
             app:imageView="@{item}"
+            android:onClick="@{() -> changeTextListener.onClick(item)}"
             />
         <TextView
             android:id="@+id/textViewFirst"
