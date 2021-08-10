@@ -133,7 +133,6 @@ class ExampleViewModel(val context: Context) : ViewModel() {
 
     fun changeItem(id: Long) {//CAtch-- id cannot be changed.
         val changeString = "Clicked on this"
-        Timber.tag("Hel").d("changeItem inside")
         val n = _mExampleList.value?.size as Int
         var sample = ArrayList<ExampleItem>()
 
@@ -141,6 +140,7 @@ class ExampleViewModel(val context: Context) : ViewModel() {
             val currItem = _mExampleList.value?.get(i)
             if (id == currItem?.id) {
                 currItem?.changeText1(changeString)
+                toast("you clicked item at position $i")
             }
             sample.add(currItem as ExampleItem)
         }
