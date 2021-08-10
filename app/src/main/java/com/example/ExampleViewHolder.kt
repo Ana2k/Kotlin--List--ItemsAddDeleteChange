@@ -1,8 +1,6 @@
 package com.example
 
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +9,7 @@ import timber.log.Timber
 
 class ExampleViewHolder(private val binding: ExampleItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
-    companion object{
+    companion object {
         fun from(parent: ViewGroup): ExampleViewHolder {
             val inflater = LayoutInflater.from(parent.context)
             // LayoutInflater: takes ID from layout defined in XML.
@@ -25,9 +23,15 @@ class ExampleViewHolder(private val binding: ExampleItemBinding) :
             return ExampleViewHolder(binding)///is this recursion happening??
         }
     }
-    fun bind(clickListener: ExampleItemListener,item: ExampleItem) {
+
+    fun bind(
+        clickListener: ExampleItemListener,
+        changeTextListener: ExampleItemChangeTextListener,
+        item: ExampleItem
+    ) {
         binding.item = item
         binding.clickListener = clickListener
+        binding.changeTextListener=changeTextListener
         //clickListener instead of ViewModel
         binding.executePendingBindings()
     }

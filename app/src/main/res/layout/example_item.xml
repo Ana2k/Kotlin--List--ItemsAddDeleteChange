@@ -1,71 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-<data>
+
+    <data>
+
         <variable
-            name= "item"
-            type= "com.example.ExampleItem" /><!--data class name the view model is -->
+            name="item"
+            type="com.example.ExampleItem" /><!--data class name the view model is -->
         <variable
-            name = "clickListener"
-            type= "com.example.ExampleItemListener"
-             /><!--data class name the view model is -->
-    <variable
-        name = "changeTextListener"
-        type = "com.example.ExampleItemChangeTextListener"
-        />
+            name="clickListener"
+            type="com.example.ExampleItemListener" /><!--data class name the view model is -->
+        <variable
+            name="changeTextListener"
+            type="com.example.ExampleItemChangeTextListener" />
 
     </data>
 
-<androidx.cardview.widget.CardView
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:cardCornerRadius="4dp">
-    <RelativeLayout
-        android:id="@+id/list_item"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="4dp"
-        android:padding="4dp">
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:padding="2dp"
-            app:imageView="@{() -> changeTextListener.onClick(item)}"
-            />
-        <TextView
-            android:id="@+id/textViewFirst"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/imageView"
-            android:text="@string/line1"
-            />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:cardCornerRadius="4dp">
 
-        <TextView
-            android:id="@+id/textViewSecond"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/line2"
-            android:textSize="15sp"
-            android:layout_below="@+id/textViewFirst"
-            android:layout_toEndOf="@+id/imageView"
-            />
-        <ImageView
-            android:id="@+id/imageDelete"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/ic_delete"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:onClick="@{() -> clickListener.onClick(item)}"
-            />
-    </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/list_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="4dp"
+            android:padding="4dp">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:onClick="@{() -> changeTextListener.onClick(item)}"
+                android:padding="2dp"
+                app:imageView="@{item}" />
+
+            <TextView
+                android:id="@+id/textViewFirst"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/imageView"
+                android:text="@string/line1"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewSecond"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textViewFirst"
+                android:layout_toEndOf="@+id/imageView"
+                android:text="@string/line2"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:id="@+id/imageDelete"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:onClick="@{() -> clickListener.onClick(item)}"
+                android:src="@drawable/ic_delete" />
+        </RelativeLayout>
 
 
-</androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
 </layout>
