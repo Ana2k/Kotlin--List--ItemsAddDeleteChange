@@ -25,9 +25,11 @@ class ExampleViewHolder(private val binding: ExampleItemBinding) :
             return ExampleViewHolder(binding)///is this recursion happening??
         }
     }
-    fun bind(clickListener: ExampleItemListener,item: ExampleItem) {
+    fun bind(clickListener: ExampleItemListener,changeTextListener: ExampleItemChangeTextListener,item: ExampleItem) {
         binding.item = item
         binding.clickListener = clickListener
+        binding.changeTextListener = changeTextListener
+
         //clickListener instead of ViewModel
         binding.executePendingBindings()
     }

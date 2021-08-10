@@ -24,7 +24,7 @@ class ExampleItemAdapter(private val clickListener: ExampleItemListener,private 
 
     override fun onBindViewHolder(holder: ExampleViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(clickListener,item)
+        holder.bind(clickListener,changeTextListener,item)
     }
 
 }
