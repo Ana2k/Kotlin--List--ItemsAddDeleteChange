@@ -1,7 +1,7 @@
 ### MVVM setup template
 
 DESCRIPTION:
-This is a simple template app for MVVVM understanding and setup. Thier are a variety of need when it comes to this architectural pattern. So i segregated the codes into step by step format to the most optimised.
+This is a simple template app for MVVM understanding and setup. Thier are a variety of need when it comes to this architectural pattern. So i segregated the codes into step by step format to the most optimised.
 
 <!-- * Basic Template File for creating item onClick Changes--Add--Delete. Using MVVM -->
 <!-- <code> <i>This text will be italic</i> <b>this text will be bold</b> </code> -->
