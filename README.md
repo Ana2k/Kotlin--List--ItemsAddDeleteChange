@@ -7,7 +7,7 @@
 * OnClickListener and binding. 
 * Along with buttons for insert remove and edit(thier functions implemented)
 
-<code>Step 2/code> : <i><b>MVVM Second</b></i>
+<code>Step 2</code> : <i><b>MVVM Second</b></i>
 * BindingUtils
 * ViewModelFactory added 
   
