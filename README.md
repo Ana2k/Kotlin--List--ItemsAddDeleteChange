@@ -7,4 +7,5 @@
 * NO View---Model or View-Model Factory yet
 * OnClickListener and binding. 
 * Along with buttons for insert remove and edit(thier functions implemented)
+* Simple logs to check click listeners.
 * Dummy Data
