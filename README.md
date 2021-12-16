@@ -3,7 +3,8 @@
 <!-- **also this text will be bold** -->
 
 <code>Branch sequence 1</code> : <i><b>MVVM First Setup</b></i>
-* MVVM--ViewHolder---Adapter--Recycler View---Model 
+* MVVM--ViewHolder---Adapter--Recycler 
+* NO View---Model or View-Model Factory yet
 * OnClickListener and binding. 
 * Along with buttons for insert remove and edit(thier functions implemented)
 * Dummy Data
