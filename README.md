@@ -2,4 +2,4 @@
 *  <STEP 1 : MVVM First Setup>
 * MVVM--ViewHolder---Adapter--Recycler View---Model 
 * OnClickListener and binding. 
-* Along with buttons for insert remove and edit(functions implemented)
+* Along with buttons for insert remove and edit(thier functions implemented)
